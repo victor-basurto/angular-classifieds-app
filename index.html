@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="ClassifiedsApp">
+<head>
+	<meta charset="UTF-8">
+	<title>Classifieds</title>
+	
+	<!-- libs -->
+	<link rel="stylesheet" href="./scripts/libs/angular-material/angular-material.css">
+	<link rel="stylesheet" href="./scripts/libs/mdi/css/materialdesignicons.min.css" media="all" type="text/css"><!-- material design icons -->
+
+	<!-- custom css -->
+	<link rel="stylesheet" href="./css/default.css">
+</head>
+<body ng-controller="ClassifiedCtrl">
+	<!-- navbar -->
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<p><strong>Classifieds</strong></p><!-- page brand -->
+			<md-button>
+				<md-icon class="mdi mdi-plus-circle"></md-icon>
+				New Classified
+			</md-button><!-- ./ md-button -->
+		</div><!-- ./ md-toolbar-tools -->
+	</md-toolbar><!-- ./ md-toolbar -->
+	
+	<!-- Content -->
+	<md-content class="md-padding" layout="row" layout-wrap>
+		<md-card flex="33">
+			<img src="./images/angularjs-hero.jpg" alt="angular shirt"/>
+			<md-card-content>
+				<div class="classifiedinfo">
+					<h2 class="md-title">{{ classifieds.title }}</h2>
+					<h3>{{ classifieds.price }}</h3>
+					<p>{{ classifieds.description }}</p>
+				</div><!-- ./ classifiedinfo -->
+			</md-card-content><!-- ./ md-card-content -->
+		</md-card><!-- ./ md-card -->
+	</md-content><!-- ./ md-content -->
+
+
+	<!-- libs -->
+	<script src="./scripts/libs/angular/angular.js"></script>
+	<script src="./scripts/libs/angular-animate/angular-animate.js"></script>
+	<script src="./scripts/libs/angular-aria/angular-aria.js"></script>
+	<script src="./scripts/libs/angular-material/angular-material.js"></script>
+
+	<!-- custom js -->
+	<script src="./scripts/app.js"></script>
+	<script src="./scripts/components/classifieds.ctr.js"></script>
+	<script src="./scripts/directives/directives.js"></script>
+</body>
+</html>

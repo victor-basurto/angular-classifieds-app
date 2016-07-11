@@ -1,0 +1,15 @@
+{
+	"name": "angular-classfieds",
+	"version": "0.0.1",
+	"dependencies": {
+		"angular": "^1.5.7",
+		"angular-animate": "^1.5.7",
+		"angular-route": "^1.5.7",
+		"angular-material": "^1.0.9",
+		"angular-aria": "^1.5.7",
+		"mdi": "^1.6.50",
+		"angular-resource": "^1.5.7",
+		"bootstrap": "^3.3.6",
+		"jquery": "^2.2.4"
+	}
+}
