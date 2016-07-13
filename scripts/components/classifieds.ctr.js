@@ -4,22 +4,19 @@
 	ClassifiedsApp.controller( 'ClassifiedCtrl', [ 
 		'$scope', 
 		'$http', 
-		function( $scope, $http ) {
-			
+		'ClassifiedsFactory',
+		function( $scope, $http, ClassifiedsFactory ) {
 			
 			// temporary null variable to show progress bar
 			$scope.classifieds = null;
 
-		
 			/**
-			 * @param {path} [file location]
+			 * ClassifiedsFactory, it will get the data from an external file
+			 * through $http
 			 * @param {promise} [returns promise in data object]
 			 */
-			$http.get( './data/info.json' ).then( function(data) {
+			ClassifiedsFactory.getClassifieds().then( function(data) {
 				$scope.classifieds = data.data;
 			});
-
 	}]);
-
-
 })();
