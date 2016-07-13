@@ -7,3 +7,20 @@ HELPERS import
 body {
 	background: rgba(0,0,0,0.12);
 }
+
+.loading-icon {
+	margin-top: 85px;
+}
+
+md-card {
+	img {
+		height: 400px;
+	}
+	.classified-contact {
+		p {
+			.mdi {
+				font-size: 22px;
+			}
+		}
+	}
+}

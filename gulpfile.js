@@ -7,7 +7,7 @@ var gulp = require( 'gulp' ),
 gulp.task( 'app-styles', function() {
 	gulp.src( './sass/default.scss' )
 		.pipe( sass({
-			sourceComments: true,
+			sourceComments: false,
 			outputStyle: 'compressed',
 			errLogToConsole: true
 		}))

@@ -10,6 +10,17 @@
 
 	<!-- custom css -->
 	<link rel="stylesheet" href="./css/default.css">
+
+	<!-- libs -->
+	<script src="./scripts/libs/angular/angular.js"></script>
+	<script src="./scripts/libs/angular-animate/angular-animate.js"></script>
+	<script src="./scripts/libs/angular-aria/angular-aria.js"></script>
+	<script src="./scripts/libs/angular-material/angular-material.js"></script>
+
+	<!-- custom js -->
+	<script src="./scripts/app.js"></script>
+	<script src="./scripts/components/classifieds.ctr.js"></script>
+	<script src="./scripts/directives/directives.js"></script>
 </head>
 <body ng-controller="ClassifiedCtrl">
 	<!-- navbar -->
@@ -24,29 +35,55 @@
 	</md-toolbar><!-- ./ md-toolbar -->
 	
 	<!-- Content -->
-	<md-content class="md-padding" layout="row" layout-wrap>
-		<md-card flex="33">
-			<img src="./images/angularjs-hero.jpg" alt="angular shirt"/>
+	<md-content class="md-padding" layout="row" layout-wrap ng-cloak>
+		<md-card ng-repeat="classified in classifieds" flex="30">
+			<img ng-src="{{ classified.image }}" alt="{{ classified.altname }}"/>
 			<md-card-content>
-				<div class="classifiedinfo">
-					<h2 class="md-title">{{ classifieds.title }}</h2>
-					<h3>{{ classifieds.price }}</h3>
-					<p>{{ classifieds.description }}</p>
+				<div class="classifiedinfo" ng-show="!showContactInfo">
+					<h2 class="md-title">{{ classified.title }}</h2>
+					<h3>{{ classified.price | currency }}</h3>
+					<p>{{ classified.description }}</p>
 				</div><!-- ./ classifiedinfo -->
+				<div class="classified-contact" ng-show="showContactInfo">
+					<p><md-icon class="mdi mdi-account"></md-icon>{{ classified.contact.name }}</p>
+					<p><md-icon class="mdi mdi-phone"></md-icon>{{ classified.contact.phone }}</p>
+					<p><md-icon class="mdi mdi-email"></md-icon>{{ classified.contact.email }}</p>
+				</div><!-- ./ classified-contact -->
+				<div layout="row">
+					<md-button ng-click="showContactInfo = true" ng-show="!showContactInfo">
+						Contact
+					</md-button>
+					<md-button ng-click="showContactInfo = false" ng-show="showContactInfo">
+						Details
+					</md-button>
+					<md-button ng-click="showAdmin = true" ng-show="!showAdmin">
+						Admin
+					</md-button>
+					<md-button ng-click="showAdmin = false" ng-show="showAdmin">
+						Close
+					</md-button>
+				</div><!-- ./ row - for buttons -->
+				<div class="classified-admin" ng-if="showAdmin">
+					<h3>Admin Area</h3>
+					<div layout="row">
+						<md-button class="md-primary">Edit</md-button>
+						<md-button class="md-warn">Delete</md-button>
+					</div>
+				</div>
+				<div layout="column" layout-align="center end">
+					<h4>{{ classified.dateposted | date }}</h4>
+				</div><!-- ./ laytou=column -->
 			</md-card-content><!-- ./ md-card-content -->
 		</md-card><!-- ./ md-card -->
 	</md-content><!-- ./ md-content -->
 
+	<!-- progress bar -->
+	<div ng-show="classifieds === null">
+		<div class="loading-icon" ng-model="acivated" layout="row" layout-sm="column" layout-align="space-around">
+			<md-progress-circular md-mode="indeterminate" md-diameter="125"></md-progress-circular>
+		</div><!-- loading-icon -->
+		
+	</div>
 
-	<!-- libs -->
-	<script src="./scripts/libs/angular/angular.js"></script>
-	<script src="./scripts/libs/angular-animate/angular-animate.js"></script>
-	<script src="./scripts/libs/angular-aria/angular-aria.js"></script>
-	<script src="./scripts/libs/angular-material/angular-material.js"></script>
-
-	<!-- custom js -->
-	<script src="./scripts/app.js"></script>
-	<script src="./scripts/components/classifieds.ctr.js"></script>
-	<script src="./scripts/directives/directives.js"></script>
 </body>
 </html>
