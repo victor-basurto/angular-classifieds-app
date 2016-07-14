@@ -28,12 +28,42 @@
 	<md-toolbar>
 		<div class="md-toolbar-tools">
 			<p><strong>Classifieds</strong></p><!-- page brand -->
-			<md-button>
+			<md-button ng-click="openSidebar()">
 				<md-icon class="mdi mdi-plus-circle"></md-icon>
 				New Classified
 			</md-button><!-- ./ md-button -->
 		</div><!-- ./ md-toolbar-tools -->
 	</md-toolbar><!-- ./ md-toolbar -->
+
+	<!-- Sidenav -->
+	<md-sidenav class="md-sidenav-left md-whiteframe-4dp" 
+		md-component-id="left">
+		<md-toolbar class="md-theme-light">
+			<h1 class="md-toolbar-tools">Sidenav Left</h1>
+		</md-toolbar><!-- ./ md-theme-light -->
+		<md-content layout-padding>
+			<form>
+				<md-input-container>
+					<label for="title">Title</label>
+					<input type="text" id="title" md-autofocus>
+				</md-input-container>
+				<md-input-container>
+					<label for="price">Price</label>
+					<input type="text" id="price">
+				</md-input-container>
+				<md-input-container>
+					<label for="description">Description</label>
+					<textarea type="text" id="description"></textarea>
+				</md-input-container>
+				<md-input-container>
+					<label for="image">Image Link</label>
+					<input type="text" id="image">
+				</md-input-container>
+				<md-button class="md-primary">Save</md-button>
+				<md-button class="md-warn" ng-click="closeSidebar()">Cancel</md-button>
+			</form><!-- ./ form -->
+		</md-content><!-- ./ layout-padding -->
+	</md-sidenav><!-- ./ md-sidenav-left -->
 	
 	<!-- Content -->
 	<md-content class="md-padding" layout="row" layout-wrap ng-cloak>
