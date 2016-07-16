@@ -58,12 +58,42 @@
 					$scope.closeSidebar();
 				} 
 				$scope.classified = {};
+				showToast( 'Your Listing is Saved', 3000 );
+			}
+
+			/**
+			 * @param {object} `listingData` [object that its going to be edited]
+			 * if functions is clicked, open sidebarnav and pass the obejct to be edited
+			 */
+			$scope.editListing = function( listingData ) {
+				$scope.editing = true;
+				$scope.openSidebar();
+				$scope.classified = listingData;
+			}
+
+			/**
+			 * [onSaveEdit - triggers closeSidebar func, then clears fields]
+			 */
+			$scope.onSaveEdit = function() {
+				$scope.editing = false;
+				$scope.classified = {};
+				$scope.closeSidebar();
+				showToast( 'The Edit has been Saved', 4000);
+			}
+
+			/**
+			 * [showToast - rehusable toast]
+			 * @param {String} `content` [message to be delivered]
+			 * @param {Number} `delay` [declare waiting time in the Toast]
+			 */
+			function showToast( content, delay ) {
 				$mdToast.show(
 					$mdToast.simple()
-						.content( 'Your Listing is Saved' )
+						.content( content )
 						.position( 'top, right' )
-						.hideDelay( 3000 )
+						.hideDelay( delay  )
 				);
 			}
+
 	}]);
 })();
