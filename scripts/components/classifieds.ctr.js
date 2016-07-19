@@ -7,8 +7,9 @@
 		'$mdSidenav',
 		'$log',
 		'$mdToast',
+		'$mdDialog',
 		'ClassifiedsFactory',
-		function( $scope, $http, $mdSidenav, $log, $mdToast, ClassifiedsFactory ) {
+		function( $scope, $http, $mdSidenav, $log, $mdToast, $mdDialog, ClassifiedsFactory ) {
 			
 			// temporary null variable to show progress bar
 			$scope.classifieds = null;
@@ -72,6 +73,31 @@
 			}
 
 			/**
+			 * [deleteListing - delete current listing from classifieds]
+			 * @param  {listingData} `listingData` [pass current listing into an array]
+			 */
+			$scope.deleteListing = function( event, listingData ) {
+				var index, confirm = $mdDialog.confirm();
+				
+				confirm.title( 'Are you sure you want to delete this item ' + listingData.title + '?' )
+					.ok( 'Yes' )
+					.cancel( 'No' )
+					.targetEvent( event );
+				$mdDialog.show( confirm ).then( function() {
+					index = $scope.classifieds.indexOf( listingData );
+					$scope.classifieds.splice( index, 1 );
+					console.log( 'succesfully deleted' );
+				}, function() {
+					/**
+					 * [TODO: If user press `cancel` then, execute this method]
+					 */
+					$scope.status = "... keep looking the listings";
+				});
+
+
+			}
+
+			/**
 			 * [onSaveEdit - triggers closeSidebar func, then clears fields]
 			 */
 			$scope.onSaveEdit = function() {
@@ -94,6 +120,5 @@
 						.hideDelay( delay  )
 				);
 			}
-
 	}]);
 })();
