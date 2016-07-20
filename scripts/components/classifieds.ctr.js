@@ -18,9 +18,11 @@
 			 * @ClassifiedsFactory {service}, [it will get the data from an external file
 			 * 									through $http]
 			 * @param {promise} [returns promise in data object]
+			 * [`getCategories` - populate categories from classifieds data]
 			 */
 			ClassifiedsFactory.getClassifieds().then( function(data) {
 				$scope.classifieds = data.data;
+				$scope.categories = getCategories( $scope.classifieds );
 			});
 
 			// temporary contact data
@@ -77,7 +79,8 @@
 			 * @param  {listingData} `listingData` [pass current listing into an array]
 			 */
 			$scope.deleteListing = function( event, listingData ) {
-				var index, confirm = $mdDialog.confirm();
+				var index, 
+					confirm = $mdDialog.confirm();
 				
 				confirm.title( 'Are you sure you want to delete this item ' + listingData.title + '?' )
 					.ok( 'Yes' )
@@ -93,8 +96,6 @@
 					 */
 					$scope.status = "... keep looking the listings";
 				});
-
-
 			}
 
 			/**
@@ -105,6 +106,11 @@
 				$scope.classified = {};
 				$scope.closeSidebar();
 				showToast( 'The Edit has been Saved', 4000);
+			}
+
+			$scope.clearFilter = function() {
+				$scope.listingsFilter = "";
+				$scope.category = "";
 			}
 
 			/**
@@ -119,6 +125,23 @@
 						.position( 'top, right' )
 						.hideDelay( delay  )
 				);
+			}
+
+			/**
+			 * [`getCategories` - receives an object and iterates through it until it gets 
+			 					value from inner array, using lodash _.uniq()]
+			 * @param {object} `listings` [data from json file]
+			 * @return {object} `categories` [only desired categories to be shown in users interface]
+			 */
+			function getCategories( listings ) {
+				var categories = [];
+
+				angular.forEach( listings, function( item ) {
+					angular.forEach( item.categories, function( category ) {
+						categories.push( category );
+					});
+				});
+				return _.uniq( categories );
 			}
 	}]);
 })();

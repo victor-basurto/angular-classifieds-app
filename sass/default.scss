@@ -1,7 +1,8 @@
-/*-------------------------------
-HELPERS import
--------------------------*/
+/*--------------------------
+	HELPERS import
+----------------------------*/
 @import "ui/variables";
+@import "ng/nganimations";
 
 
 body {
@@ -12,15 +13,21 @@ body {
 	margin-top: 85px;
 }
 
-md-card {
-	img {
-		height: 400px;
-	}
-	.classified-contact {
-		p {
-			.mdi {
-				font-size: 22px;
+md-content {
+	md-card {
+		img {
+			height: 400px;
+		}
+		.classified-contact {
+			p {
+				.mdi {
+					font-size: 22px;
+				}
 			}
 		}
 	}
+}
+
+.clear-filter {
+	margin-top: 0px;
 }

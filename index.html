@@ -16,6 +16,7 @@
 	<script src="./scripts/libs/angular-animate/angular-animate.js"></script>
 	<script src="./scripts/libs/angular-aria/angular-aria.js"></script>
 	<script src="./scripts/libs/angular-material/angular-material.js"></script>
+	<script src="./scripts/libs/lodash/dist/lodash.min.js"></script>
 
 	<!-- custom js -->
 	<script src="./scripts/app.js"></script>
@@ -27,8 +28,9 @@
 	
 	<!-- navigation -->
 	<header>
-		<md-toolbar ng-include="'./default/navigation.html'"></md-toolbar><!-- ./ md-toolbar -->
+		<div ng-include="'./default/navigation.html'"></div><!-- ./ md-toolbar -->
 	</header><!-- ./ header -->
+
 
 	<!-- Sidenav -->
 	<section>
@@ -37,10 +39,40 @@
 			ng-include="'./default/left-sidenav.html'">
 		</md-sidenav><!-- ./ md-sidenav-left -->
 	</section><!-- ./ section -->
+
+	<!-- filter button -->
+	<div layout="row" layout-align="end center" ng-cloak>
+		<md-button ng-click="showFilters=true">
+			<md-icon class="mdi mdi-magnify"></md-icon>
+			Filters
+		</md-button><!-- ./ md-button -->
+	</div><!-- ./ row -->
+	<!-- filters -->
+	<div class="filters" layout="row" layout-align="center" ng-show="showFilters">
+		<!-- search term container -->
+		<md-input-container>
+			<label>Enter Search Term</label>
+			<input type="text" ng-model="listingsFilter">
+		</md-input-container><!-- ./ search term container -->
+		<!-- category container -->
+		<md-input-container>
+			<label>Category</label>
+			<md-select ng-model="category">
+				<md-option ng-repeat="category in categories" value="{{ category }}">
+					{{ category }}
+				</md-option><!-- ./ md-option -->
+			</md-select><!-- ./ md-select -->
+		</md-input-container><!-- ./ category container -->
+		<!-- clear button -->
+		<md-input-container>
+			<md-button class="md-warn clear-filter" ng-click="clearFilter()">Clear</md-button>
+		</md-input-container><!-- ./ clear button -->
+	</div><!-- ./ filters -->
 	
 	<!-- Content -->
 	<md-content class="md-padding" layout="row" layout-wrap ng-cloak>
-		<md-card ng-repeat="classified in classifieds" flex="30">
+		<md-card flex="30" class="listing"
+			ng-repeat="classified in classifieds | filter: listingsFilter | filter: category">
 			<img ng-src="{{ classified.image }}" alt="{{ classified.altname }}"/>
 			<md-card-content>
 				<div class="classifiedinfo" ng-show="!showContactInfo">
