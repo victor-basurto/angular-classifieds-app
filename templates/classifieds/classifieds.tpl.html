@@ -1,3 +1,60 @@
+<!-- navigation -->
+<header>
+	<div>
+		<!-- navbar -->
+		<md-toolbar>
+			<div class="md-toolbar-tools">
+				<p><strong>Classifieds</strong></p><!-- page brand -->
+				<md-button ng-click="vm.openSidebar()">
+					<md-icon class="mdi mdi-plus-circle"></md-icon>
+					New Classified
+				</md-button><!-- ./ md-button -->
+			</div><!-- ./ md-toolbar-tools -->
+		</md-toolbar><!-- ./ md-toolbar -->
+	</div><!-- ./ md-toolbar -->
+</header><!-- ./ header -->
+<!-- Sidenav -->
+<section>
+	<md-sidenav class="md-sidenav-left md-whiteframe-4dp" 
+		md-component-id="left">
+		<md-toolbar class="md-theme-light">
+			<h1 class="md-toolbar-tools">Add New Listing</h1>
+		</md-toolbar><!-- ./ md-theme-light -->
+		<md-content layout-padding>
+			<form>
+				<md-input-container>
+					<label for="title">Title</label>
+					<input type="text" id="title" ng-model="classified.title" md-autofocus>
+				</md-input-container>
+				<md-input-container>
+					<label for="price">Price</label>
+					<input type="text" ng-model="classified.price" id="price">
+				</md-input-container>
+				<md-input-container>
+					<label for="description">Description</label>
+					<textarea type="text" ng-model="classified.description" id="description"></textarea>
+				</md-input-container>
+				<md-input-container>
+					<label for="image">Image Link</label>
+					<input type="text" ng-model="classified.image" id="image">
+				</md-input-container>
+				<md-button class="md-primary" 
+							ng-if="!editing" 
+							ng-click="vm.saveListing(classified)">
+							Save
+				</md-button>
+				<md-button class="md-primary" 
+							ng-if="editing" 
+							ng-click="vm.onSaveEdit()">
+							Save Edit
+				</md-button>
+				<md-button class="md-warn" ng-click="vm.closeSidebar()">Cancel</md-button>
+			</form><!-- ./ form -->
+			<pre>{{ classified | json }}</pre>
+		</md-content><!-- ./ layout-padding -->
+	</md-sidenav><!-- ./ md-sidenav-left -->
+</section><!-- ./ section -->
+
 <!-- filter button -->
 <div layout="row" layout-align="end center" ng-cloak>
 	<md-button ng-click="showFilters=true">
@@ -16,21 +73,21 @@
 	<md-input-container>
 		<label>Category</label>
 		<md-select ng-model="category">
-			<md-option ng-repeat="category in categories" value="{{ category }}">
+			<md-option ng-repeat="category in vm.categories" value="{{ category }}">
 				{{ category }}
 			</md-option><!-- ./ md-option -->
 		</md-select><!-- ./ md-select -->
 	</md-input-container><!-- ./ category container -->
 	<!-- clear button -->
 	<md-input-container>
-		<md-button class="md-warn clear-filter" ng-click="clearFilter()">Clear</md-button>
+		<md-button class="md-warn clear-filter" ng-click="vm.clearFilter()">Clear</md-button>
 	</md-input-container><!-- ./ clear button -->
 </div><!-- ./ filters -->
 
 <!-- Content -->
 <md-content class="md-padding" layout="row" layout-wrap ng-cloak>
 	<md-card flex="30" class="listing"
-		ng-repeat="classified in classifieds | filter: listingsFilter | filter: category">
+		ng-repeat="classified in vm.classifieds | filter: listingsFilter | filter: category">
 		<img ng-src="{{ classified.image }}" alt="{{ classified.altname }}"/>
 		<md-card-content>
 			<div class="classifiedinfo" ng-show="!showContactInfo">
@@ -60,8 +117,8 @@
 			<div class="classified-admin" ng-if="showAdmin">
 				<h3>Admin Area</h3>
 				<div layout="row">
-					<md-button ng-click="editListing(classified)" class="md-primary">Edit</md-button>
-					<md-button ng-click="deleteListing($event, classified)" class="md-warn">Delete</md-button>
+					<md-button ng-click="vm.editListing(classified)" class="md-primary">Edit</md-button>
+					<md-button ng-click="vm.deleteListing($event, classified)" class="md-warn">Delete</md-button>
 				</div>
 			</div>
 			<div layout="column" layout-align="center end">
@@ -72,7 +129,7 @@
 </md-content><!-- ./ md-content -->
 
 <!-- progress bar -->
-<div ng-show="classifieds === null">
+<div ng-show="vm.classifieds === null">
 	<div class="loading-icon" ng-model="acivated" layout="row" layout-sm="column" layout-align="space-around">
 		<md-progress-circular md-mode="indeterminate" md-diameter="125"></md-progress-circular>
 	</div><!-- loading-icon -->

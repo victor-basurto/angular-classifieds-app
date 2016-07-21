@@ -17,7 +17,7 @@ ClassifiedsApp.config([
 			.state( 'classifieds', {
 				url: '/classifieds',
 				templateUrl: 'templates/classifieds/classifieds.tpl.html',
-				controller: 'ClassifiedsCtrl as vm'
+				controller: 'ClassifiedCtrl as vm'
 			});
 }]);
 

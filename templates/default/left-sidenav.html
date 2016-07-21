@@ -1,3 +1,4 @@
+<!-- TODO: leave here until needed -->
 <md-toolbar class="md-theme-light">
 	<h1 class="md-toolbar-tools">Add New Listing</h1>
 </md-toolbar><!-- ./ md-theme-light -->
@@ -19,9 +20,9 @@
 			<label for="image">Image Link</label>
 			<input type="text" ng-model="classified.image" id="image">
 		</md-input-container>
-		<md-button class="md-primary" ng-if="!editing" ng-click="saveListing(classified)">Save</md-button>
-		<md-button class="md-primary" ng-if="editing" ng-click="onSaveEdit()">Save Edit</md-button>
-		<md-button class="md-warn" ng-click="closeSidebar()">Cancel</md-button>
+		<md-button class="md-primary" ng-if="!editing" ng-click="vm.saveListing(classified)">Save</md-button>
+		<md-button class="md-primary" ng-if="editing" ng-click="vm.onSaveEdit()">Save Edit</md-button>
+		<md-button class="md-warn" ng-click="vm.closeSidebar()">Cancel</md-button>
 	</form><!-- ./ form -->
 	<pre>{{ classified | json }}</pre>
 </md-content><!-- ./ layout-padding -->

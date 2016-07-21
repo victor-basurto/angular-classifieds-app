@@ -25,24 +25,10 @@
 	<script src="./scripts/directives/directives.js"></script>
 	<script src="./scripts/services/services.js"></script>
 </head>
-<body ng-controller="ClassifiedCtrl">
-	
-	<!-- navigation -->
-	<header>
-		<div ng-include="'./templates/default/navigation.html'"></div><!-- ./ md-toolbar -->
-	</header><!-- ./ header -->
-
-
-	<!-- Sidenav -->
-	<section>
-		<md-sidenav class="md-sidenav-left md-whiteframe-4dp" 
-			md-component-id="left"
-			ng-include="'./default/left-sidenav.html'">
-		</md-sidenav><!-- ./ md-sidenav-left -->
-	</section><!-- ./ section -->
+<body>
 
 	<ui-view></ui-view>
 
-	
+
 </body>
 </html>
