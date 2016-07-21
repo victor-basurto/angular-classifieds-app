@@ -14,6 +14,7 @@
 	<!-- libs -->
 	<script src="./scripts/libs/angular/angular.js"></script>
 	<script src="./scripts/libs/angular-animate/angular-animate.js"></script>
+	<script src="./scripts/libs/angular-ui-router/release/angular-ui-router.min.js"></script>
 	<script src="./scripts/libs/angular-aria/angular-aria.js"></script>
 	<script src="./scripts/libs/angular-material/angular-material.js"></script>
 	<script src="./scripts/libs/lodash/dist/lodash.min.js"></script>
@@ -28,7 +29,7 @@
 	
 	<!-- navigation -->
 	<header>
-		<div ng-include="'./default/navigation.html'"></div><!-- ./ md-toolbar -->
+		<div ng-include="'./templates/default/navigation.html'"></div><!-- ./ md-toolbar -->
 	</header><!-- ./ header -->
 
 
@@ -40,85 +41,8 @@
 		</md-sidenav><!-- ./ md-sidenav-left -->
 	</section><!-- ./ section -->
 
-	<!-- filter button -->
-	<div layout="row" layout-align="end center" ng-cloak>
-		<md-button ng-click="showFilters=true">
-			<md-icon class="mdi mdi-magnify"></md-icon>
-			Filters
-		</md-button><!-- ./ md-button -->
-	</div><!-- ./ row -->
-	<!-- filters -->
-	<div class="filters" layout="row" layout-align="center" ng-show="showFilters">
-		<!-- search term container -->
-		<md-input-container>
-			<label>Enter Search Term</label>
-			<input type="text" ng-model="listingsFilter">
-		</md-input-container><!-- ./ search term container -->
-		<!-- category container -->
-		<md-input-container>
-			<label>Category</label>
-			<md-select ng-model="category">
-				<md-option ng-repeat="category in categories" value="{{ category }}">
-					{{ category }}
-				</md-option><!-- ./ md-option -->
-			</md-select><!-- ./ md-select -->
-		</md-input-container><!-- ./ category container -->
-		<!-- clear button -->
-		<md-input-container>
-			<md-button class="md-warn clear-filter" ng-click="clearFilter()">Clear</md-button>
-		</md-input-container><!-- ./ clear button -->
-	</div><!-- ./ filters -->
+	<ui-view></ui-view>
+
 	
-	<!-- Content -->
-	<md-content class="md-padding" layout="row" layout-wrap ng-cloak>
-		<md-card flex="30" class="listing"
-			ng-repeat="classified in classifieds | filter: listingsFilter | filter: category">
-			<img ng-src="{{ classified.image }}" alt="{{ classified.altname }}"/>
-			<md-card-content>
-				<div class="classifiedinfo" ng-show="!showContactInfo">
-					<h2 class="md-title">{{ classified.title }}</h2>
-					<h3>{{ classified.price | currency }}</h3>
-					<p>{{ classified.description }}</p>
-				</div><!-- ./ classifiedinfo -->
-				<div class="classified-contact" ng-show="showContactInfo">
-					<p><md-icon class="mdi mdi-account"></md-icon>{{ classified.contact.name }}</p>
-					<p><md-icon class="mdi mdi-phone"></md-icon>{{ classified.contact.phone }}</p>
-					<p><md-icon class="mdi mdi-email"></md-icon>{{ classified.contact.email }}</p>
-				</div><!-- ./ classified-contact -->
-				<div layout="row">
-					<md-button ng-click="showContactInfo = true" ng-show="!showContactInfo">
-						Contact
-					</md-button>
-					<md-button ng-click="showContactInfo = false" ng-show="showContactInfo">
-						Details
-					</md-button>
-					<md-button ng-click="showAdmin = true" ng-show="!showAdmin">
-						Admin
-					</md-button>
-					<md-button ng-click="showAdmin = false" ng-show="showAdmin">
-						Close
-					</md-button>
-				</div><!-- ./ row - for buttons -->
-				<div class="classified-admin" ng-if="showAdmin">
-					<h3>Admin Area</h3>
-					<div layout="row">
-						<md-button ng-click="editListing(classified)" class="md-primary">Edit</md-button>
-						<md-button ng-click="deleteListing($event, classified)" class="md-warn">Delete</md-button>
-					</div>
-				</div>
-				<div layout="column" layout-align="center end">
-					<h4>{{ classified.dateposted | date }}</h4>
-				</div><!-- ./ laytou=column -->
-			</md-card-content><!-- ./ md-card-content -->
-		</md-card><!-- ./ md-card -->
-	</md-content><!-- ./ md-content -->
-
-	<!-- progress bar -->
-	<div ng-show="classifieds === null">
-		<div class="loading-icon" ng-model="acivated" layout="row" layout-sm="column" layout-align="space-around">
-			<md-progress-circular md-mode="indeterminate" md-diameter="125"></md-progress-circular>
-		</div><!-- loading-icon -->
-	</div>
-
 </body>
 </html>

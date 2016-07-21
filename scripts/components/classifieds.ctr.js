@@ -11,8 +11,23 @@
 		'ClassifiedsFactory',
 		function( $scope, $http, $mdSidenav, $log, $mdToast, $mdDialog, ClassifiedsFactory ) {
 			
+			var vm = this;
+
+			vm.openSidebar = openSidebar;
+			vm.closeSidebar = closeSidebar;
+			vm.saveListing = saveListing;
+			vm.editListing = editListing;
+			vm.deleteListing = deleteListing;
+			vm.onSaveEdit = onSaveEdit;
+			vm.clearFilter = clearFilter;
+
+			vm.classifieds;
+			vm.categories;
+			vm.editing;
+			vm.classified;
+
 			// temporary null variable to show progress bar
-			$scope.classifieds = null;
+			vm.classifieds = null;
 
 			/**
 			 * @ClassifiedsFactory {service}, [it will get the data from an external file
@@ -21,8 +36,8 @@
 			 * [`getCategories` - populate categories from classifieds data]
 			 */
 			ClassifiedsFactory.getClassifieds().then( function(data) {
-				$scope.classifieds = data.data;
-				$scope.categories = getCategories( $scope.classifieds );
+				vm.classifieds = data.data;
+				vm.categories = getCategories( vm.classifieds );
 			});
 
 			// temporary contact data
@@ -35,7 +50,7 @@
 			/**
 			 * [openSidebar `left sidenav` docs @angular-material]
 			 */
-			$scope.openSidebar = function() {
+			function openSidebar() {
 				$mdSidenav('left').open();
 			}
 			/**
@@ -43,7 +58,7 @@
 			 * 					doc @angular-material]
 			 * @return {promise} [once sidenav is close, send message to console]
 			 */
-			$scope.closeSidebar = function() {
+			function closeSidebar() {
 				$mdSidenav('left').close()
 					.then( function() {
 						$log.debug('Close left sidenav is done');
@@ -54,13 +69,13 @@
 			 * @param {object} `data` [save data from sidenav]
 			 * @return {object} `toast` [if data is saved, show toast to user]
 			 */
-			$scope.saveListing = function( data ) {
+			function saveListing( data ) {
 				if ( data ) {
 					data.contact = contact;
-					$scope.classifieds.push( data );
-					$scope.closeSidebar();
+					vm.classifieds.push( data );
+					vm.closeSidebar();
 				} 
-				$scope.classified = {};
+				vm.classified = {};
 				showToast( 'Your Listing is Saved', 3000 );
 			}
 
@@ -68,17 +83,17 @@
 			 * @param {object} `listingData` [object that its going to be edited]
 			 * if functions is clicked, open sidebarnav and pass the obejct to be edited
 			 */
-			$scope.editListing = function( listingData ) {
-				$scope.editing = true;
-				$scope.openSidebar();
-				$scope.classified = listingData;
+			function editListing( listingData ) {
+				vm.editing = true;
+				openSidebar();
+				vm.classified = listingData;
 			}
 
 			/**
 			 * [deleteListing - delete current listing from classifieds]
 			 * @param  {listingData} `listingData` [pass current listing into an array]
 			 */
-			$scope.deleteListing = function( event, listingData ) {
+			function deleteListing( event, listingData ) {
 				var index, 
 					confirm = $mdDialog.confirm();
 				
@@ -87,30 +102,30 @@
 					.cancel( 'No' )
 					.targetEvent( event );
 				$mdDialog.show( confirm ).then( function() {
-					index = $scope.classifieds.indexOf( listingData );
-					$scope.classifieds.splice( index, 1 );
+					index = vm.classifieds.indexOf( listingData );
+					vm.classifieds.splice( index, 1 );
 					console.log( 'succesfully deleted' );
 				}, function() {
 					/**
 					 * [TODO: If user press `cancel` then, execute this method]
 					 */
-					$scope.status = "... keep looking the listings";
+					vm.status = "... keep looking the listings";
 				});
 			}
 
 			/**
 			 * [onSaveEdit - triggers closeSidebar func, then clears fields]
 			 */
-			$scope.onSaveEdit = function() {
-				$scope.editing = false;
-				$scope.classified = {};
-				$scope.closeSidebar();
+			function onSaveEdit() {
+				vm.editing = false;
+				vm.classified = {};
+				closeSidebar();
 				showToast( 'The Edit has been Saved', 4000);
 			}
 
-			$scope.clearFilter = function() {
-				$scope.listingsFilter = "";
-				$scope.category = "";
+			function clearFilter() {
+				vm.listingsFilter = "";
+				vm.category = "";
 			}
 
 			/**
