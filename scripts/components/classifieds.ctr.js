@@ -13,18 +13,17 @@
 			
 			var vm = this;
 
-			vm.openSidebar = openSidebar;
-			vm.closeSidebar = closeSidebar;
-			vm.saveListing = saveListing;
-			vm.editListing = editListing;
-			vm.deleteListing = deleteListing;
-			vm.onSaveEdit = onSaveEdit;
-			vm.clearFilter = clearFilter;
-
-			vm.classifieds;
 			vm.categories;
+			// vm.classifieds;
+			vm.clearFilter = clearFilter;
+			vm.closeSidebar = closeSidebar;
+			vm.deleteListing = deleteListing;
 			vm.editing;
-			vm.classified;
+			vm.editListing = editListing;
+			vm.onSaveEdit = onSaveEdit;
+			vm.openSidebar = openSidebar;
+			vm.saveListing = saveListing;
+
 
 			// temporary null variable to show progress bar
 			vm.classifieds = null;
@@ -86,7 +85,7 @@
 			function editListing( listingData ) {
 				vm.editing = true;
 				openSidebar();
-				vm.classified = listingData;
+				$scope.classified = listingData;
 			}
 
 			/**
@@ -158,5 +157,7 @@
 				});
 				return _.uniq( categories );
 			}
+
+			return vm;
 	}]);
 })();
