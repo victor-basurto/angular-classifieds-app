@@ -14,7 +14,7 @@
 			var vm = this;
 
 			vm.categories;
-			// vm.classifieds;
+			vm.classified = {};
 			vm.clearFilter = clearFilter;
 			vm.closeSidebar = closeSidebar;
 			vm.deleteListing = deleteListing;
@@ -23,7 +23,6 @@
 			vm.onSaveEdit = onSaveEdit;
 			vm.openSidebar = openSidebar;
 			vm.saveListing = saveListing;
-
 
 			// temporary null variable to show progress bar
 			vm.classifieds = null;
@@ -62,6 +61,8 @@
 					.then( function() {
 						$log.debug('Close left sidenav is done');
 					});
+				vm.classified = {};
+				vm.editing = false;
 			}
 
 			/**
@@ -72,9 +73,9 @@
 				if ( data ) {
 					data.contact = contact;
 					vm.classifieds.push( data );
-					vm.closeSidebar();
+					console.log()
 				} 
-				vm.classified = {};
+				closeSidebar();
 				showToast( 'Your Listing is Saved', 3000 );
 			}
 
@@ -84,8 +85,8 @@
 			 */
 			function editListing( listingData ) {
 				vm.editing = true;
+				vm.classified = listingData;
 				openSidebar();
-				$scope.classified = listingData;
 			}
 
 			/**
@@ -122,6 +123,9 @@
 				showToast( 'The Edit has been Saved', 4000);
 			}
 
+			/**
+			 * [clearFilter - clears input fields]
+			 */
 			function clearFilter() {
 				vm.listingsFilter = "";
 				vm.category = "";
@@ -157,7 +161,5 @@
 				});
 				return _.uniq( categories );
 			}
-
-			return vm;
 	}]);
 })();

@@ -24,23 +24,23 @@
 			<form>
 				<md-input-container>
 					<label for="title">Title</label>
-					<input type="text" id="title" ng-model="classified.title" md-autofocus>
+					<input type="text" id="title" ng-model="vm.classified.title" md-autofocus>
 				</md-input-container>
 				<md-input-container>
 					<label for="price">Price</label>
-					<input type="text" ng-model="classified.price" id="price">
+					<input type="text" ng-model="vm.classified.price" id="price">
 				</md-input-container>
 				<md-input-container>
 					<label for="description">Description</label>
-					<textarea type="text" ng-model="classified.description" id="description"></textarea>
+					<textarea type="text" ng-model="vm.classified.description" id="description"></textarea>
 				</md-input-container>
 				<md-input-container>
 					<label for="image">Image Link</label>
-					<input type="text" ng-model="classified.image" id="image">
+					<input type="text" ng-model="vm.classified.image" id="image">
 				</md-input-container>
 				<md-button class="md-primary" 
 							ng-if="!vm.editing" 
-							ng-click="vm.saveListing(classified)">
+							ng-click="vm.saveListing(vm.classified)">
 							Save
 				</md-button>
 				<md-button class="md-primary" 
@@ -50,7 +50,7 @@
 				</md-button>
 				<md-button class="md-warn" ng-click="vm.closeSidebar()">Cancel</md-button>
 			</form><!-- ./ form -->
-			<pre>{{ classified | json }}</pre>
+			<pre>{{ vm.classified | json }}</pre>
 		</md-content><!-- ./ layout-padding -->
 	</md-sidenav><!-- ./ md-sidenav-left -->
 </section><!-- ./ section -->
@@ -67,12 +67,12 @@
 	<!-- search term container -->
 	<md-input-container>
 		<label>Enter Search Term</label>
-		<input type="text" ng-model="listingsFilter">
+		<input type="text" ng-model="vm.listingsFilter">
 	</md-input-container><!-- ./ search term container -->
 	<!-- category container -->
 	<md-input-container>
 		<label>Category</label>
-		<md-select ng-model="category">
+		<md-select ng-model="vm.category">
 			<md-option ng-repeat="category in vm.categories" value="{{ category }}">
 				{{ category }}
 			</md-option><!-- ./ md-option -->
@@ -87,7 +87,7 @@
 <!-- Content -->
 <md-content class="md-padding" layout="row" layout-wrap ng-cloak>
 	<md-card flex="30" class="listing"
-		ng-repeat="classified in vm.classifieds | filter: listingsFilter | filter: category">
+		ng-repeat="classified in vm.classifieds | filter: vm.listingsFilter | filter: vm.category">
 		<img ng-src="{{ classified.image }}" alt="{{ classified.altname }}"/>
 		<md-card-content>
 			<div class="classifiedinfo" ng-show="!showContactInfo">
