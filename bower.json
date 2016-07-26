@@ -10,6 +10,6 @@
 		"mdi": "^1.6.50",
 		"angular-resource": "^1.5.7",
 		"angular-ui-router": "^0.3.1",
-		"lodash": "^4.13.1",
+		"lodash": "^4.13.1"
 	}
 }

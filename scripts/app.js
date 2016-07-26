@@ -16,8 +16,12 @@ ClassifiedsApp.config([
 		$stateProvider
 			.state( 'classifieds', {
 				url: '/classifieds',
-				templateUrl: 'templates/classifieds/classifieds.tpl.html',
+				templateUrl: 'templates/classifieds.tpl.html',
 				controller: 'ClassifiedCtrl as vm'
+			}).state( 'classifieds.new', {
+				url: '/new',
+				templateUrl: 'templates/new-classifieds.tpl.html',
+				controller: 'NewClassifiedCtrl as vm'
 			});
 }]);
 

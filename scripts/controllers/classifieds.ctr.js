@@ -1,15 +1,15 @@
 (function() {
 	'use strict';
 
-	ClassifiedsApp.controller( 'ClassifiedCtrl', [ 
-		'$scope', 
+	ClassifiedsApp.controller( 'ClassifiedCtrl', [
 		'$http', 
 		'$mdSidenav',
 		'$log',
 		'$mdToast',
 		'$mdDialog',
+		'$state',
 		'ClassifiedsFactory',
-		function( $scope, $http, $mdSidenav, $log, $mdToast, $mdDialog, ClassifiedsFactory ) {
+		function( $http, $mdSidenav, $log, $mdToast, $mdDialog, $state, ClassifiedsFactory ) {
 			
 			var vm = this;
 
@@ -49,7 +49,8 @@
 			 * [openSidebar `left sidenav` docs @angular-material]
 			 */
 			function openSidebar() {
-				$mdSidenav('left').open();
+				// $mdSidenav('left').open();
+				$state.go( 'classifieds.new' );
 			}
 			/**
 			 * [closeSidebar `left-sidenav` close sidenav from `cancel` button
