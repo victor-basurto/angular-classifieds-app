@@ -39,9 +39,20 @@
 				vm.categories = getCategories( vm.classifieds );
 			});
 
-			$scope.$on( 'myMessage', function( event, message ) {
-				console.log( message )
+			/**
+			 * [add new listing]
+			 * @param {Method} `newListing` [method from child controller]
+			 * @param  {Callback} event 	[event]
+			 * @param  {Object} `listingData` [object that will be saved from child controller
+			 *                                listingData.id [temporary id]]
+			 * @return {Method} `showToast` [show toast if data is saved]
+			 */
+			$scope.$on( 'newListing', function( event, listingData ) {
+				listingData.id = vm.classifieds.length + 1;
+				vm.classifieds.push( listingData );
+				showToast( 'Listing Saved', 3000 );
 			});
+
 
 			// temporary contact data
 			var contact = {

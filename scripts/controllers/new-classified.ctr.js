@@ -12,7 +12,7 @@
 			var vm = this;
 
 			vm.closeSidebar = closeSidebar;
-			vm.sendMessage = sendMessage;
+			vm.saveListing = saveListing;
 
 			/**
 			 * [$mdSidenav- will be executed once the route is changed, then the left 
@@ -49,8 +49,21 @@
 				vm.sidenavOpen = false;
 			}
 
-			function sendMessage() {
-				$scope.$emit('myMessage', 'hey whatsup?');
+			/**
+			 * @param {object} `data` [save data from sidenav]
+			 * @return {object} `toast` [if data is saved, show toast to user]
+			 */
+			function saveListing( listingData ) {
+				if ( listingData ) {
+					// temporary contact data		
+					listingData.contact = {
+						name: 'My Funny Name',
+						phone: '(123) 987-6543',
+						email: 'funnyname@gmail.com'
+					}
+					$scope.$emit( 'newListing', listingData );
+					vm.sidenavOpen = false;
+				}
 			}
 	}]);
 })();
