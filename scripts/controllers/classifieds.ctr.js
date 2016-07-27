@@ -2,6 +2,7 @@
 	'use strict';
 
 	ClassifiedsApp.controller( 'ClassifiedCtrl', [
+		'$scope',
 		'$http', 
 		'$mdSidenav',
 		'$log',
@@ -9,7 +10,7 @@
 		'$mdDialog',
 		'$state',
 		'ClassifiedsFactory',
-		function( $http, $mdSidenav, $log, $mdToast, $mdDialog, $state, ClassifiedsFactory ) {
+		function( $scope, $http, $mdSidenav, $log, $mdToast, $mdDialog, $state, ClassifiedsFactory ) {
 			
 			var vm = this;
 
@@ -36,6 +37,10 @@
 			ClassifiedsFactory.getClassifieds().then( function(data) {
 				vm.classifieds = data.data;
 				vm.categories = getCategories( vm.classifieds );
+			});
+
+			$scope.$on( 'myMessage', function( event, message ) {
+				console.log( message )
 			});
 
 			// temporary contact data

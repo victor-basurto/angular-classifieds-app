@@ -12,6 +12,7 @@
 			var vm = this;
 
 			vm.closeSidebar = closeSidebar;
+			vm.sendMessage = sendMessage;
 
 			/**
 			 * [$mdSidenav- will be executed once the route is changed, then the left 
@@ -46,6 +47,10 @@
 			 */
 			function closeSidebar() {
 				vm.sidenavOpen = false;
+			}
+
+			function sendMessage() {
+				$scope.$emit('myMessage', 'hey whatsup?');
 			}
 	}]);
 })();
