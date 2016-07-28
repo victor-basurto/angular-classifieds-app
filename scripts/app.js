@@ -22,6 +22,13 @@ ClassifiedsApp.config([
 				url: '/new',
 				templateUrl: 'templates/new-classifieds.tpl.html',
 				controller: 'NewClassifiedCtrl as vm'
+			}).state('classifieds.edit', {
+				url: '/edit/:id',
+				templateUrl: 'templates/edit-classifieds.tpl.html',
+				controller: 'EditClassifiedCtrl as vm',
+				params: {
+					classified: null
+				}
 			});
 }]);
 

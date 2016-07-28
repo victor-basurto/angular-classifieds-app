@@ -21,7 +21,7 @@
 			vm.deleteListing = deleteListing;
 			vm.editing;
 			vm.editListing = editListing;
-			vm.onSaveEdit = onSaveEdit;
+			// vm.onSaveEdit = onSaveEdit;
 			vm.openSidebar = openSidebar;
 			vm.saveListing = saveListing;
 
@@ -53,6 +53,17 @@
 				showToast( 'Listing Saved', 3000 );
 			});
 
+			/**
+			 * [save edited listing]
+			 * @param {Method} `saveEdit` [method from child controller]
+			 * @param  {Callback} event 	[event]
+			 * @param  {String} `message` [String-Msg that will be showed up from child controller]
+			 * @return {Method} `showToast` [show toast if data is saved]
+			 */
+			$scope.$on( 'savedEdit', function( event, message ) {
+				closeSidebar();
+				showToast( message, 3000 );
+			});
 
 			// temporary contact data
 			var contact = {
@@ -101,9 +112,14 @@
 			 * if functions is clicked, open sidebarnav and pass the obejct to be edited
 			 */
 			function editListing( listingData ) {
-				vm.editing = true;
-				vm.classified = listingData;
-				openSidebar();
+				$state.go( 'classifieds.edit', {
+					id: listingData.id,
+					classified: listingData
+
+				});
+				// vm.editing = true;
+				// vm.classified = listingData;
+				// openSidebar();
 			}
 
 			/**
@@ -133,12 +149,12 @@
 			/**
 			 * [onSaveEdit - triggers closeSidebar func, then clears fields]
 			 */
-			function onSaveEdit() {
-				vm.editing = false;
-				vm.classified = {};
-				closeSidebar();
-				showToast( 'The Edit has been Saved', 4000);
-			}
+			// function onSaveEdit() {
+			// 	vm.editing = false;
+			// 	vm.classified = {};
+			// 	closeSidebar();
+			// 	showToast( 'The Edit has been Saved', 4000);
+			// }
 
 			/**
 			 * [clearFilter - clears input fields]
