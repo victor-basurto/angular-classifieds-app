@@ -9,8 +9,9 @@
 		'$mdToast',
 		'$mdDialog',
 		'$state',
+		'$timeout',
 		'ClassifiedsFactory',
-		function( $scope, $http, $mdSidenav, $log, $mdToast, $mdDialog, $state, ClassifiedsFactory ) {
+		function( $scope, $http, $mdSidenav, $log, $mdToast, $mdDialog, $state, $timeout, ClassifiedsFactory ) {
 			
 			var vm = this;
 
@@ -29,15 +30,30 @@
 			vm.classifieds = null;
 
 			/**
+			 * [let spinner shows for 2 seconds, then set variable into object reference from firebase]
+			 * @return {Callback} [set vm.classifieds to object from firebase]
+			 * @return {Promise} [once classifieds are loaded, then set categories to function that 
+			 					returns the categories of the classifieds]
+			 */
+			$timeout(function() {
+				vm.classifieds = ClassifiedsFactory.ref;
+				vm.classifieds.$loaded().then( function( classifieds ) {
+					vm.categories = getCategories( classifieds );
+				});
+			}, 2000);
+
+
+			/**
 			 * @ClassifiedsFactory {service}, [it will get the data from an external file
 			 * 									through $http]
 			 * @param {promise} [returns promise in data object]
 			 * [`getCategories` - populate categories from classifieds data]
 			 */
-			ClassifiedsFactory.getClassifieds().then( function(data) {
-				vm.classifieds = data.data;
-				vm.categories = getCategories( vm.classifieds );
-			});
+
+			// ClassifiedsFactory.getClassifieds().then( function(data) {
+			// 	vm.classifieds = data.data;
+			// 	vm.categories = getCategories( vm.classifieds );
+			// });
 
 			/**
 			 * [add new listing]
@@ -194,5 +210,6 @@
 				});
 				return _.uniq( categories );
 			}
+
 	}]);
 })();

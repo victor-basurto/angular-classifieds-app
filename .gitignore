@@ -32,3 +32,7 @@ scripts/libs
 *.css-map
 build/
 dist/
+
+# Extra Data #
+######################
+example-to-uploaddata-to-firebase.js

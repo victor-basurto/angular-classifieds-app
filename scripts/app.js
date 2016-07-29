@@ -1,6 +1,8 @@
 'use strict';
 
-var ClassifiedsApp = angular.module('ClassifiedsApp', [ 'ngMaterial', 'ui.router' ]);
+var ClassifiedsApp = angular.module('ClassifiedsApp', 
+	[ 'ngMaterial', 'ui.router', 'firebase' ])
+		.constant('FIREBASE_URL', 'https://ng-classified-app.firebaseio.com/');;
 
 /**
  * Configuration
