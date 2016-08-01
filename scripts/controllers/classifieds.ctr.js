@@ -64,8 +64,11 @@
 			 * @return {Method} `showToast` [show toast if data is saved]
 			 */
 			$scope.$on( 'newListing', function( event, listingData ) {
-				listingData.id = vm.classifieds.length + 1;
-				vm.classifieds.push( listingData );
+				
+				vm.classifieds.$add( listingData );
+
+				// listingData.id = vm.classifieds.length + 1;		without firebase
+				// vm.classifieds.push( listingData );		without firebase
 				showToast( 'Listing Saved', 3000 );
 			});
 
