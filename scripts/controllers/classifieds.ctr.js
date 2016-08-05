@@ -17,6 +17,7 @@
 
 			vm.categories;
 			vm.classified = {};
+			vm.classifieds = {};
 			vm.clearFilter = clearFilter;
 			vm.closeSidebar = closeSidebar;
 			vm.deleteListing = deleteListing;
@@ -27,7 +28,7 @@
 			vm.saveListing = saveListing;
 
 			// temporary null variable to show progress bar
-			vm.classifieds = null;
+			vm.spinner = true;
 
 			/**
 			 * [let spinner shows for 2 seconds, then set variable into object reference from firebase]
@@ -35,12 +36,13 @@
 			 * @return {Promise} [once classifieds are loaded, then set categories to function that 
 			 					returns the categories of the classifieds]
 			 */
-			$timeout(function() {
+			
 				vm.classifieds = ClassifiedsFactory.ref;
 				vm.classifieds.$loaded().then( function( classifieds ) {
 					vm.categories = getCategories( classifieds );
+					vm.spinner = false;
 				});
-			}, 2000);
+			
 
 
 			/**
@@ -132,9 +134,7 @@
 			 */
 			function editListing( listingData ) {
 				$state.go( 'classifieds.edit', {
-					id: listingData.id,
-					classified: listingData
-
+					id: listingData.$id
 				});
 				// vm.editing = true;
 				// vm.classified = listingData;
@@ -154,9 +154,10 @@
 					.cancel( 'No' )
 					.targetEvent( event );
 				$mdDialog.show( confirm ).then( function() {
-					index = vm.classifieds.indexOf( listingData );
-					vm.classifieds.splice( index, 1 );
-					console.log( 'succesfully deleted' );
+					vm.classifieds.$remove( listingData );
+					showToast( 'Listing Removed', 2500 );
+					// index = vm.classifieds.indexOf( listingData );
+					// vm.classifieds.splice( index, 1 );
 				}, function() {
 					/**
 					 * [TODO: If user press `cancel` then, execute this method]

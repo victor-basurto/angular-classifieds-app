@@ -11,9 +11,10 @@
 		function( $scope, $mdSidenav, $mdDialog, $timeout, $state, ClassifiedsFactory ) {
 			var vm = this;
 
+			vm.classifieds = ClassifiedsFactory.ref;
+			vm.classified = vm.classifieds.$getRecord( $state.params.id );
 			vm.closeSidebar = closeSidebar;
 			vm.saveEditListing = saveEditListing;
-			vm.classified = $state.params.classified;
 
 			/**
 			 * [$mdSidenav- will be executed once the route is changed, then the left 
@@ -55,8 +56,10 @@
 			 * @return {Boolean} [boolean to close sidenav]
 			 */
 			function saveEditListing() {
-				$scope.$emit( 'savedEdit', 'Your Edit has been Saved' );
-				vm.sidenavOpen = false;
+				vm.classifieds.$save( vm.classified ).then( function() {
+					$scope.$emit( 'savedEdit', 'Your Edit has been Saved' );
+					vm.sidenavOpen = false;
+				});
 			}
 	}]);
 })();
