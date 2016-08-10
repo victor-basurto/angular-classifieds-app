@@ -20,9 +20,9 @@
 			vm.classifieds = {};
 			vm.clearFilter = clearFilter;
 			vm.closeSidebar = closeSidebar;
-			vm.deleteListing = deleteListing;
+			// vm.deleteListing = deleteListing;
 			vm.editing;
-			vm.editListing = editListing;
+			// vm.editListing = editListing;
 			// vm.onSaveEdit = onSaveEdit;
 			vm.openSidebar = openSidebar;
 			vm.saveListing = saveListing;
@@ -42,8 +42,6 @@
 					vm.categories = getCategories( classifieds );
 					vm.spinner = false;
 				});
-			
-
 
 			/**
 			 * @ClassifiedsFactory {service}, [it will get the data from an external file
@@ -126,44 +124,6 @@
 				} 
 				closeSidebar();
 				showToast( 'Your Listing is Saved', 3000 );
-			}
-
-			/**
-			 * @param {object} `listingData` [object that its going to be edited]
-			 * if functions is clicked, open sidebarnav and pass the obejct to be edited
-			 */
-			function editListing( listingData ) {
-				$state.go( 'classifieds.edit', {
-					id: listingData.$id
-				});
-				// vm.editing = true;
-				// vm.classified = listingData;
-				// openSidebar();
-			}
-
-			/**
-			 * [deleteListing - delete current listing from classifieds]
-			 * @param  {listingData} `listingData` [pass current listing into an array]
-			 */
-			function deleteListing( event, listingData ) {
-				var index, 
-					confirm = $mdDialog.confirm();
-				
-				confirm.title( 'Are you sure you want to delete this item ' + listingData.title + '?' )
-					.ok( 'Yes' )
-					.cancel( 'No' )
-					.targetEvent( event );
-				$mdDialog.show( confirm ).then( function() {
-					vm.classifieds.$remove( listingData );
-					showToast( 'Listing Removed', 2500 );
-					// index = vm.classifieds.indexOf( listingData );
-					// vm.classifieds.splice( index, 1 );
-				}, function() {
-					/**
-					 * [TODO: If user press `cancel` then, execute this method]
-					 */
-					vm.status = "... keep looking the listings";
-				});
 			}
 
 			/**
